@@ -1,11 +1,17 @@
 " VIM_CLEAN
 " https://github.com/AlbertDM/vim_clean/
+" Handy C, Markdown, and AsciiDoc development configurations
 "
 " VIM_COMMANDS:
 "
 """ :e  To navigate through system directories and files
 """ <ctrl> + N  To autocomplete list
 """ %s/<keyword>/<replace_with>/g
+
+
+" ERRORS: "
+" set noerror
+
 
 " Abbreviations
 abbr W w
@@ -54,8 +60,15 @@ set incsearch
 " Highlight search matches as you type
 set hlsearch
 
+" MOUSE CONFIG "
 " Enable mouse support
-set mouse=a
+set mouse=a " Mouse in all modes(normal, visual and insert)
+""" set mouse=nic "Use for nic and Xterm
+" * In Normal mode you can change from splits in a click and move to another
+" " line.
+" " * In Visual mode + Ctrl it allows to free-select a block and copy it on
+" the
+" " System clipboard or the same clipboard. Use scrollwheel to paste.
 
 " Set clipboard to use system clipboard
 set clipboard=unnamedplus
@@ -96,9 +109,19 @@ let &t_EI = "\<Esc>[5 q"
 " Enable line and column numbers in command mode
 set showcmd
 
+" COMPLETION: "
+" Search down into subfolders
+" Provides tab-completion for all file-related tasks
+set path+=**
 " Enable autocompletion using Tab
+" " Display all matching files when we tab complete
 set wildmenu
 set wildmode=list:longest,full
+" NOW WE CAN
+" - Hit tab to :find by partial match
+" - Use * to make it fuzzy
+" THINGS TO CONSIDER
+" - :b lets you autocomplete any open buffer
 
 " Highlight the current line only in the current window
 set cursorline
@@ -136,8 +159,14 @@ inoremap { {}<Left>
 " Enable NERDTree for file navigation
 " nnoremap <F7> :NERDTreeToggle<CR>
 
+" APPEARENCE:"
 " Enable color scheme (adjust as needed)
 colorscheme desert
+" set background=light
+" highlight Comment ctermfg=DarkCyan
+" highlight Comment guifg=#ABCD // SetHexColour
+" highlight Normal ctermfg=24
+" highlight Normal ctermbg=23
 
 " Automatically update the file if changed externally
 set autoread
@@ -178,3 +207,15 @@ nnoremap <leader>sp :normal! mz[s1z=`z<CR>
 "             exe 'normal zg'
 " endfunction
 " autocmd BufReadPre * : call ZgAllMisspelledWords()
+
+
+
+" WINDOWS CONTROL:
+" Term mode -> Normal mode
+" <Esc> was a good idea but into Term:vim then Inception-effect
+:tnoremap <C-w> <Esc><C-\><C-n><C-w>
+" ESC + INSERT MODE
+    " Think about it....<a> <Esc><a> this will be a mess!
+    " Term in split window by default
+    " split | term
+    "
