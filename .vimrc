@@ -77,15 +77,22 @@ set clipboard=unnamedplus
 nnoremap <C-z> u
 nnoremap <C-S-z> <C-R>
 
-" C file specific settings
+" C file specific settings:
 autocmd FileType c setlocal omnifunc=ccomplete#Complete
 autocmd FileType c setlocal textwidth=100
 
-" Markdown and AsciiDoc file specific settings
+" Markdown and AsciiDoc file specific settings:
 autocmd FileType markdown,asciidoc setlocal textwidth=100
 
-" Python files
+" PYTHON DEVELOPMENT:
 autocmd FileType python setlocal textwidth=100
+" Display current function/method name in the status line
+set statusline+=%{GetPythonFunctionName()}
+
+" Custom function to get the current Python function name
+function! GetPythonFunctionName()
+    return substitute(system('python3 -c "import sys;import token;import tokenize;code = open(sys.argv[1]).read();tokens = tokenize.tokenize(io.BytesIO(code.encode()).readline);functions = [t.string for t in tokens if t.type == token.NAME and t.string.isidentifier() and t.line == t.end[0]];print(functions[-1] if functions else \'\'" '.expand('%')), '\n', '', 'g')
+endfunction
 
 " Map F5 to compile and run the current C file
 nnoremap <F5> :!gcc % -o %< && ./%<<CR>
@@ -219,3 +226,12 @@ nnoremap <leader>sp :normal! mz[s1z=`z<CR>
     " Term in split window by default
     " split | term
     "
+
+" PYTHON DEVELOPMENT:
+" Display current function/method name in the status line
+set statusline+=%{GetPythonFunctionName()}
+
+" Custom function to get the current Python function name
+function! GetPythonFunctionName()
+    return substitute(system('python3 -c "import sys;import token;import tokenize;code = open(sys.argv[1]).read();tokens = tokenize.tokenize(io.BytesIO(code.encode()).readline);functions = [t.string for t in tokens if t.type == token.NAME and t.string.isidentifier() and t.line == t.end[0]];print(functions[-1] if functions else \'\'" '.expand('%')), '\n', '', 'g')
+endfunction
