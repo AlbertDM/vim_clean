@@ -59,6 +59,7 @@ set incsearch
 
 " Highlight search matches as you type
 set hlsearch
+" Use the :syn clear command. This will remove all syntax highlighting from the current buffer.
 
 " MOUSE CONFIG "
 " Enable mouse support
