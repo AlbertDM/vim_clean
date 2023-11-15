@@ -7,6 +7,7 @@
 """ :e  To navigate through system directories and files
 """ <ctrl> + N  To autocomplete list
 """ %s/<keyword>/<replace_with>/g
+""" :set tags=tags
 
 
 " ERRORS: "
@@ -37,6 +38,7 @@ set smartindent
 " Expand tabs to spaces
 set expandtab
 set tabstop=4
+set softtabstop=4
 set shiftwidth=4
 
 " Show matching parentheses/brackets
@@ -87,13 +89,6 @@ autocmd FileType markdown,asciidoc setlocal textwidth=100
 
 " PYTHON DEVELOPMENT:
 autocmd FileType python setlocal textwidth=100
-" Display current function/method name in the status line
-set statusline+=%{GetPythonFunctionName()}
-
-" Custom function to get the current Python function name
-function! GetPythonFunctionName()
-    return substitute(system('python3 -c "import sys;import token;import tokenize;code = open(sys.argv[1]).read();tokens = tokenize.tokenize(io.BytesIO(code.encode()).readline);functions = [t.string for t in tokens if t.type == token.NAME and t.string.isidentifier() and t.line == t.end[0]];print(functions[-1] if functions else \'\'" '.expand('%')), '\n', '', 'g')
-endfunction
 
 " Map F5 to compile and run the current C file
 nnoremap <F5> :!gcc % -o %< && ./%<<CR>
@@ -221,18 +216,8 @@ nnoremap <leader>sp :normal! mz[s1z=`z<CR>
 " WINDOWS CONTROL:
 " Term mode -> Normal mode
 " <Esc> was a good idea but into Term:vim then Inception-effect
-:tnoremap <C-w> <Esc><C-\><C-n><C-w>
+" :tnoremap <C-w> <Esc><C-\><C-n><C-w>
 " ESC + INSERT MODE
     " Think about it....<a> <Esc><a> this will be a mess!
     " Term in split window by default
     " split | term
-    "
-
-" PYTHON DEVELOPMENT:
-" Display current function/method name in the status line
-set statusline+=%{GetPythonFunctionName()}
-
-" Custom function to get the current Python function name
-function! GetPythonFunctionName()
-    return substitute(system('python3 -c "import sys;import token;import tokenize;code = open(sys.argv[1]).read();tokens = tokenize.tokenize(io.BytesIO(code.encode()).readline);functions = [t.string for t in tokens if t.type == token.NAME and t.string.isidentifier() and t.line == t.end[0]];print(functions[-1] if functions else \'\'" '.expand('%')), '\n', '', 'g')
-endfunction
